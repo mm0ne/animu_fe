@@ -7,6 +7,7 @@ import BackButton from "@/components/elements/BackButton";
 import AnimeArticle from "@/components/module/AnimeArticle";
 import { CheckCircle, XCircle } from "@phosphor-icons/react";
 import Loader from "@/components/elements/Loader";
+import Head from "next/head";
 
 export default function animeDetail() {
   const { query } = useRouter();
@@ -14,10 +15,16 @@ export default function animeDetail() {
   return isLoading ? (
     <Loader/>
   ) : (
+    
     <main className="w-full px-6 min-h-[80vh] flex gap-x-2 max-w-full">
       <BackButton />
       {data && (
         <section className="flex flex-col justify-start items-start">
+          <Head>
+            <title>{"Anime | " + data.data.title_eng}</title>
+            <meta name="description" content={data.data.anime_detail.description}/>
+            <meta lang="en-US"/>
+          </Head>
           <h1 className="font-bold text-2xl">{data?.data.title_eng}</h1>
           <h3 className="font-semibold text-slate-100 text-xl opacity-80">
             {"[JP] " + data?.data.title_jp}

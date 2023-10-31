@@ -13,6 +13,7 @@ import { OptionValue } from "@/components/elements/FilterSelect";
 import { useQueryClient } from "@tanstack/react-query";
 import { BaseResponse } from "@/types/common";
 import Loader from "@/components/elements/Loader";
+import Head from "next/head";
 
 interface AnimePageProps {
   genres: Genre[];
@@ -68,6 +69,11 @@ export default function anime({ genres }: AnimePageProps) {
 
   return ( isLoading && page == 0 ? <Loader/> : 
     <main className="w-full max-w-5xl overflow-hidden pl-2">
+      <Head>
+        <title> Watched Anime</title>
+        <meta name="description" content="This page shows list and reviews of animes i have watched"/>
+        <meta lang="en-US"/>
+      </Head>
       <h2 className="text-xl font-bold pb-2">Watched Anime</h2>
       <SearchWithFilter
         selects={genres as OptionValue[]}
