@@ -1,12 +1,14 @@
-import { Disc, PawPrint } from "@phosphor-icons/react";
 import React, { ReactElement, useState} from "react";
-import type { Icon } from "@phosphor-icons/react";
+import {RiDiscLine} from "react-icons/ri"
+import {PiPawPrint} from "react-icons/pi"
+import {FaCat} from "react-icons/fa"
+import { IconType } from "react-icons";
 import { ComponentWithChildren } from "@/types/common";
 import Link from "next/link";
 import { useSpring, animated } from "@react-spring/web";
 
 interface ConfigMenuProps {
-  icon: ReactElement<Icon>;
+  icon: ReactElement<IconType>;
   title: string;
   href: string;
 }
@@ -47,19 +49,20 @@ export default function DashboardLayout({
   return (
     <div>
       <div className="p-4 flex flex-row justify-between">
-        <Link href="/">
+        <Link href="/" className="flex items-center gap-x-1">
+          <FaCat className="w-7 h-7  mb-2"/>
           <h1 className="text-2xl font-bold">{"Lily's Page"}</h1>
         </Link>
       </div>
       <div className="flex flex-row gap-8 h-auto min-h-[70vh]">
         <section className="flex flex-col gap-2 basis-[24rem]">
           <ConfigMenu
-            icon={<PawPrint size={24} />}
+            icon={<PiPawPrint size={24} />}
             title="Anime"
             href="/anime"
           />
           <ConfigMenu
-            icon={<Disc size={24} />}
+            icon={<RiDiscLine size={24} />}
             title="Records"
             href="/records"
           />

@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import { ArrowLeft } from "@phosphor-icons/react";
+import {BsArrow90DegLeft} from "react-icons/bs"
 import React from "react";
 
 
 export default function BackButton() {
     const {back} = useRouter()
     return <div onClick={() => back()} className="rounded-full p-4 text-slate-200 cursor-pointer hover:text-white font-[900] hover:bg-neutral transition-all duration-100 h-[3.5em]">
-            <ArrowLeft size={25}/>
+            <BsArrow90DegLeft size={25}/>
     </div>
 }

@@ -1,5 +1,5 @@
 import { Alias, AnimeDetail, Genre, GenreJoinReponse } from "@/types/anime";
-import { ArrowSquareOut } from "@phosphor-icons/react";
+import {SiMyanimelist} from "react-icons/si"
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,10 +25,10 @@ export default function AnimeThumbnail({image_link, mal_link ,detail, genres, al
                 className="rounded-md"
                 objectFit="cover"/>
             </div>
-            <Link target="_blank" href={mal_link} className="w-full flex justify-center items-center font-semibold gap-x-2 bg-blue-600 py-1 rounded-md hover:text-yellow-500 transition-all duration-100">
+            <Link target="_blank" href={mal_link} className="w-full flex justify-center items-center font-semibold gap-x-1 bg-blue-600 py-1 rounded-md hover:text-yellow-500 transition-all duration-100">
 
+                <SiMyanimelist size={26}/>
                 MyAnimeList
-                <ArrowSquareOut size={17}/>
             </Link>
             <article className="font-semibold max-w-fit">
                 <p className="text-slate-200">Year : <span className="font-normal">{detail.year}</span></p>

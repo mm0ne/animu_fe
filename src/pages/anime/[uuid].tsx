@@ -5,7 +5,7 @@ import { getAnimeDetail } from "@/components/apis/anime";
 import { UUID } from "crypto";
 import BackButton from "@/components/elements/BackButton";
 import AnimeArticle from "@/components/module/AnimeArticle";
-import { CheckCircle, XCircle } from "@phosphor-icons/react";
+import {RxCrossCircled, RxCheckCircled} from "react-icons/rx"
 import Loader from "@/components/elements/Loader";
 import Head from "next/head";
 
@@ -44,11 +44,11 @@ export default function animeDetail() {
             <div className="flex flex-col items-center justify-start w-[20em]">
 
             {data.data.anime_detail.is_recommended ? (
-              <><CheckCircle size={100} className="font-bold text-emerald-500" />
+              <><RxCheckCircled size={100} className="font-bold text-emerald-500" />
                 <p className="text-emerald-500 text-xl">Recommended</p>
               </>
             ) : (
-                <><XCircle size={100} className="font-bold text-red-500" />
+                <><RxCrossCircled size={100} className="font-bold text-red-500" />
                 <p className="text-red-500 text-xl">Recommended</p>
               </>
             )}
