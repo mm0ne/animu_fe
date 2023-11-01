@@ -76,7 +76,6 @@ export default function anime({ genres }: AnimePageProps) {
           name="description"
           content="This page shows list and reviews of animes I have watched"
         />
-        <meta lang="en-US" />
       </Head>
       {isLoading && page == 0 ? (
         <Loader />

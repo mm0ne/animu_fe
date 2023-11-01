@@ -23,7 +23,6 @@ export default function animeDetail() {
           <Head>
             <title>{"Anime | " + data.data.title_eng}</title>
             <meta name="description" content={data.data.anime_detail.description}/>
-            <meta lang="en-US"/>
           </Head>
           <h1 className="font-bold text-2xl">{data?.data.title_eng}</h1>
           <h3 className="font-semibold text-slate-100 text-xl opacity-80">
