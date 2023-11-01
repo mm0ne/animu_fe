@@ -1,5 +1,6 @@
 import { Alias, AnimeDetail, Genre, GenreJoinReponse } from "@/types/anime";
 import {SiMyanimelist} from "react-icons/si"
+import {BsBoxArrowUpRight} from "react-icons/bs"
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,8 +28,10 @@ export default function AnimeThumbnail({image_link, mal_link ,detail, genres, al
             </div>
             <Link target="_blank" href={mal_link} className="w-full flex justify-center items-center font-semibold gap-x-1 bg-blue-600 py-1 rounded-md hover:text-yellow-500 transition-all duration-100">
 
-                <SiMyanimelist size={26}/>
+                <SiMyanimelist size={26} className="mt-[2px]"/>
                 MyAnimeList
+                <BsBoxArrowUpRight size={13} className="ml-1"/>
+
             </Link>
             <article className="font-semibold max-w-fit">
                 <p className="text-slate-200">Year : <span className="font-normal">{detail.year}</span></p>

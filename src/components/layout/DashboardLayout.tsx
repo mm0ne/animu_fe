@@ -51,7 +51,7 @@ export default function DashboardLayout({
       <div className="p-4 flex flex-row justify-between">
         <Link href="/" className="flex items-center gap-x-1">
           <FaCat className="w-7 h-7  mb-2"/>
-          <h1 className="text-2xl font-bold">{"Lily's Page"}</h1>
+          <h1 className="text-2xl font-bold">{"Aster's Corner"}</h1>
         </Link>
       </div>
       <div className="flex flex-row gap-8 h-auto min-h-[70vh]">
