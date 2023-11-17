@@ -12,7 +12,7 @@ const AnimeCard: React.FC<{ data: Anime }> = ({ data }) => {
     <Card link={"/anime/" + id}>
       <div className="h-[30vh] w-full max-w-xs p-6 flex flex-col items-center relative">
         <Image src={image_link} alt={title_eng} fill={true} objectFit="cover" className="rounded-md"/>
-        <div className="absolute left-3 top-3 bg-slate-700 px-1 rounded-full flex flex-row items-center justify-start gap-x-1">
+        <div className="absolute left-[10px] top-[10px] bg-slate-700 px-1 rounded-full flex flex-row items-center justify-start gap-x-1">
             <AiTwotoneStar size={13} weight="fill" className="text-amber-300"/>
             <p className="font-semibold text-[12px]">{rating}</p>
         </div>

@@ -88,7 +88,7 @@ export default function anime({ genres }: AnimePageProps) {
             submitHandler={handleSubmit}
           />
           <section className="mt-10 h-[75vh] overflow-scroll">
-            <section className="grid grid-cols-5 gap-y-4">
+            <section className="grid grid-cols-5 gap-y-4 gap-x-8">
               {animes.map((anime, index) => {
                 return <AnimeCard key={index} data={anime} />;
               })}
