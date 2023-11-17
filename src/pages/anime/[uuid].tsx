@@ -48,7 +48,7 @@ export default function animeDetail() {
               </>
             ) : (
                 <><RxCrossCircled size={100} className="font-bold text-red-500" />
-                <p className="text-red-500 text-xl">Recommended</p>
+                <p className="text-red-500 text-xl">Not Recommended</p>
               </>
             )}
             </div>
