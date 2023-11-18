@@ -8,6 +8,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import "@/styles/globals.css";
+import { Toaster } from "react-hot-toast";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -27,7 +28,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             refetchOnWindowFocus: false,
             refetchOnReconnect: false,
             refetchOnMount: false,
-            retry: false
+            retry: false,
           },
         },
         queryCache: new QueryCache(),
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <BaseLayout>
         <Component {...pageProps} />
       </BaseLayout>
+      <Toaster position="bottom-center" reverseOrder={false} gutter={8} />
     </QueryClientProvider>
   );
 }

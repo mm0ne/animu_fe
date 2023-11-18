@@ -14,6 +14,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { BaseResponse } from "@/types/common";
 import Loader from "@/components/elements/Loader";
 import Head from "next/head";
+import NotFound from "@/components/module/NotFound";
+import toast from "react-hot-toast";
 
 interface AnimePageProps {
   genres: Genre[];
@@ -24,11 +26,15 @@ export default function anime({ genres }: AnimePageProps) {
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [paramString, setParamString] = useState<string>("");
   const [animes, setAnimes] = useState<Anime[]>([]);
-  const { data, isLoading, isFetching } = !isSearch
+  const { data, isLoading, isFetching, isError } = !isSearch
     ? getAllAnimePaginated(page)
     : searchAnimePaginated(paramString, page);
 
   const queryClient = useQueryClient();
+
+  const getNextPage = async () => {
+    setPage(page + 1);
+  }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,6 +71,7 @@ export default function anime({ genres }: AnimePageProps) {
   useEffect(() => {
     if (data && data.data && animes != data.data) {
       setAnimes(() => [...animes, ...data.data]);
+      console.log(data)
     }
   }, [data]);
 
@@ -87,28 +94,37 @@ export default function anime({ genres }: AnimePageProps) {
             search_for="anime"
             submitHandler={handleSubmit}
           />
-          <section className="mt-10 h-[75vh] overflow-scroll">
-            <section className="grid grid-cols-5 gap-y-4 gap-x-8">
-              {animes.map((anime, index) => {
-                return <AnimeCard key={index} data={anime} />;
-              })}
+          {animes.length == 0 ? (
+            <NotFound
+              rem_w={20}
+              rem_h={20}
+              textSize_px={50}
+              notFoundText="couldn't find anime"
+            />
+          ) : (
+            <section className="mt-10 h-[75vh] overflow-scroll">
+              <section className="grid grid-cols-5 gap-y-4 gap-x-8">
+                {animes.map((anime, index) => {
+                  return <AnimeCard key={index} data={anime} />;
+                })}
+              </section>
+              <div className="mt-5 w-full flex justify-center items-center">
+                <button
+                  onClick={getNextPage}
+                  className={"btn btn-outline " + (isLoading ? "disabled" : "")}
+                >
+                  {isFetching ? (
+                    <>
+                      <span className="loading loading-spinner"></span>
+                      loading
+                    </>
+                  ) : (
+                    <>view more</>
+                  )}
+                </button>
+              </div>
             </section>
-            <div className="mt-5 w-full flex justify-center items-center">
-              <button
-                onClick={() => setPage(page + 1)}
-                className={"btn btn-outline " + (isLoading ? "disabled" : "")}
-              >
-                {isFetching ? (
-                  <>
-                    <span className="loading loading-spinner"></span>
-                    loading
-                  </>
-                ) : (
-                  <>view more</>
-                )}
-              </button>
-            </div>
-          </section>
+          )}
         </main>
       )}
     </>
