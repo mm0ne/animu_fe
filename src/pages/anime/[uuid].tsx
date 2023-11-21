@@ -24,7 +24,7 @@ export default function animeDetail() {
             <title>{"Anime | " + data.data.title_eng}</title>
             <meta name="description" content={data.data.anime_detail.description}/>
           </Head>
-          <h1 className="font-bold text-2xl">{data?.data.title_eng}</h1>
+          <h1 className="font-bold text-3xl">{data?.data.title_eng}</h1>
           <h3 className="font-semibold text-slate-100 text-xl opacity-80">
             {"[JP] " + data?.data.title_jp}
           </h3>
@@ -43,12 +43,12 @@ export default function animeDetail() {
             <div className="flex flex-col items-center justify-start w-[20em]">
 
             {data.data.anime_detail.is_recommended ? (
-              <><RxCheckCircled size={100} className="font-bold text-emerald-500" />
-                <p className="text-emerald-500 text-xl">Recommended</p>
+              <><RxCheckCircled size={130} className="font-bold text-emerald-500" />
+                <p className="text-emerald-500 text-2xl font-semibold">Recommended</p>
               </>
             ) : (
-                <><RxCrossCircled size={100} className="font-bold text-red-500" />
-                <p className="text-red-500 text-xl">Not Recommended</p>
+                <><RxCrossCircled size={130} className="font-bold text-red-500" />
+                <p className="text-red-500 text-2xl font-semibold">Not Recommended</p>
               </>
             )}
             </div>

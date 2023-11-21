@@ -30,7 +30,7 @@ function ConfigMenu({ icon, title, href }: ConfigMenuProps) {
       onMouseEnter={() => setIsBooped(true)}
       onMouseLeave={() => setIsBooped(false)}
       href={href}
-      className="flex flex-row gap-2 items-center py-3 px-4 hover:bg-neutral rounded-r-full hover:cursor-pointer hover:text-white transition-all duration-100"
+      className="flex flex-row gap-2 items-center py-4 px-4 text-xl hover:bg-neutral rounded-r-full hover:cursor-pointer hover:text-white transition-all duration-100"
     >
       <animated.span style={springs}>
         {icon}
@@ -50,19 +50,19 @@ export default function DashboardLayout({
     <div>
       <div className="p-4 flex flex-row justify-between">
         <Link href="/" className="flex items-center gap-x-1">
-          <FaCat className="w-7 h-7  mb-2"/>
-          <h1 className="text-2xl font-bold">{"Aster's Corner"}</h1>
+          <FaCat className="w-9 h-9  mb-2"/>
+          <h1 className="text-3xl font-bold">{"Aster's Corner"}</h1>
         </Link>
       </div>
       <div className="flex flex-row gap-8 h-auto min-h-[70vh]">
         <section className="flex flex-col gap-2 basis-[24rem]">
           <ConfigMenu
-            icon={<PiPawPrint size={24} />}
+            icon={<PiPawPrint size={30} />}
             title="Anime"
             href="/anime"
           />
           <ConfigMenu
-            icon={<RiDiscLine size={24} />}
+            icon={<RiDiscLine size={30} />}
             title="Records"
             href="/records"
           />

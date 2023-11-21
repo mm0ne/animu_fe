@@ -17,8 +17,8 @@ export default function AnimeThumbnail({image_link, mal_link ,detail, genres, al
     let genre = genres.map( x => { return x.anime_genre.name})
     let alias = aliases.map( x => { return x.name})
     return(
-        <section className="flex flex-col justify-start gap-y-3 max-w-[13em]">
-            <div className="relative w-[13em] h-[20em]">
+        <section className="flex flex-col justify-start gap-y-3 max-w-[15em]">
+            <div className="relative w-[15em] h-[20em]">
                 <Image
                 src={image_link}
                 alt={image_link}
@@ -33,7 +33,7 @@ export default function AnimeThumbnail({image_link, mal_link ,detail, genres, al
                 <BsBoxArrowUpRight size={13} className="ml-1"/>
 
             </Link>
-            <article className="font-semibold max-w-fit">
+            <article className="font-semibold max-w-fit text-[18px]">
                 <p className="text-slate-200">Year : <span className="font-normal">{detail.year}</span></p>
                 <p className="text-slate-200">Genre : <span className="font-normal">{genre.join(", ")}</span></p>
                 <p className="text-slate-200">Seasons : <span className="font-normal">{detail.seasons}</span></p>

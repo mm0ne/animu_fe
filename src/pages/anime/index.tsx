@@ -81,14 +81,14 @@ export default function anime({ genres }: AnimePageProps) {
         <title> Watched Anime</title>
         <meta
           name="description"
-          content="This page shows list and reviews of animes I have watched"
+          content="List and reviews of animes I have watched"
         />
       </Head>
       {isLoading && page == 0 ? (
         <Loader />
       ) : (
-        <main className="w-full max-w-5xl overflow-hidden pl-2">
-          <h2 className="text-xl font-bold pb-2">Watched Anime</h2>
+        <main className="w-full max-w-7xl pl-2 overflow-y-hidden">
+          <h2 className="text-2xl font-bold pb-2">Watched Anime</h2>
           <SearchWithFilter
             selects={genres as OptionValue[]}
             search_for="anime"
@@ -102,8 +102,8 @@ export default function anime({ genres }: AnimePageProps) {
               notFoundText="couldn't find anime"
             />
           ) : (
-            <section className="mt-10 h-[75vh] overflow-scroll">
-              <section className="grid grid-cols-5 gap-y-4 gap-x-8">
+            <section className="mt-10 h-[78vh] overflow-y-scroll">
+              <section className="grid grid-cols-5 gap-y-4 gap-x-8 pr-4">
                 {animes.map((anime, index) => {
                   return <AnimeCard key={index} data={anime} />;
                 })}

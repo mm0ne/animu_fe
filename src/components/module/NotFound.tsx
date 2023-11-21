@@ -14,17 +14,16 @@ export default function NotFound({
   notFoundText,
   textSize_px,
 }: NotFoundProps) {
-  const cat_size = Math.ceil(rem_h / 3);
 
   return (
     <div className="flex flex-col items-center justify-start bg-transparent w-full gap-y-20 mb-10 text-slate-400 opacity-90">
       <div className="relative">
         <TbError404 className={`w-[${rem_w}em] h-[${rem_h}em]`} />
         <GiCat
-          className={`w-full h-[${cat_size}em] absolute inset-x-0 -bottom-10 text-neutral`}
+          className={`w-full h-[7em] absolute inset-x-0 -bottom-10 text-neutral`}
         />
       </div>
-      <h1 className={`text-[${textSize_px}px] font-semibold`}>
+      <h1 className={`text-[30px] font-semibold`}>
         {notFoundText}
       </h1>
     </div>
