@@ -20,8 +20,8 @@ const AnimeCard: React.FC<{ data: Anime }> = ({ data }) => {
 
             <div className="p-2 flex flex-col">
                 <div className="flex flex-col items-start justify-start ">
-                    <h3 className="text-[18px] font-semibold">{title_eng}</h3>
-                    <p className="text-[14px]">{genres}</p>
+                    <h3 className="text-[14px] md:text-[18px] font-semibold">{title_eng}</h3>
+                    <p className="text-[12px] md:text-[14px]">{genres}</p>
                 </div>
             </div>
         </div>

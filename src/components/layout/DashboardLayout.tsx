@@ -53,7 +53,7 @@ export default function DashboardLayout({
       <Navbar toggle_label="drawer"/>
       <div className="drawer lg:drawer-open">
         <input id="drawer" type="checkbox" className="drawer-toggle"/>
-        <div className="drawer-content w-full px-4 pt-2 md:px-8 md:pt-6 bg-base-100 h-auto">
+        <div className="drawer-content w-full px-2 pt-2 md:px-4 lg:px-8 md:pt-6 bg-base-100 h-auto">
           {children}
 
         </div>

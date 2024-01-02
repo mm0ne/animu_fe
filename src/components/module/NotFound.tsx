@@ -16,13 +16,12 @@ export default function NotFound({
 }: NotFoundProps) {
 
   return (
-    <div className="flex flex-col items-center justify-start bg-transparent w-full gap-y-20 mb-10 text-slate-400 opacity-90">
-      <div className="relative">
-        <TbError404 className={`w-[${rem_w}em] h-[${rem_h}em]`} />
+    <div className="flex flex-col items-center justify-start bg-transparent w-full gap-y-4 mb-10 text-slate-400 opacity-90">
+
+        <h1 className="font-bold text-7xl lg:text-[100px] xl:text-[200px]">404</h1>
         <GiCat
-          className={`w-full h-[7em] absolute inset-x-0 -bottom-10 text-neutral`}
+          className={`w-[10em] h-[7em]  text-neutral`}
         />
-      </div>
       <h1 className={`text-[30px] font-semibold`}>
         {notFoundText}
       </h1>

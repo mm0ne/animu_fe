@@ -103,7 +103,7 @@ export default function anime({ genres }: AnimePageProps) {
             />
           ) : (
             <section className="mt-10 h-auto lg:h-[78vh] overflow-y-scroll">
-              <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-8 xl:pr-4">
+              <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-4 md:gap-x-8 xl:pr-4">
                 {animes.map((anime, index) => {
                   return <AnimeCard key={index} data={anime} />;
                 })}
