@@ -17,8 +17,8 @@ export default function AnimeThumbnail({image_link, mal_link ,detail, genres, al
     let genre = genres.map( x => { return x.anime_genre.name})
     let alias = aliases.map( x => { return x.name})
     return(
-        <section className="flex flex-col justify-start gap-y-3 max-w-[15em]">
-            <div className="relative w-[15em] h-[20em]">
+        <section className="flex flex-col justify-start gap-y-3 w-[90vw] lg:max-w-[15em] py-4 lg:py-0">
+            <div className="relative w-[70vw] h-[32em] lg:w-[15em] lg:h-[20em] self-center">
                 <Image
                 src={image_link}
                 alt={image_link}
@@ -26,7 +26,7 @@ export default function AnimeThumbnail({image_link, mal_link ,detail, genres, al
                 className="rounded-md"
                 objectFit="cover"/>
             </div>
-            <Link target="_blank" href={mal_link} className="w-full flex justify-center items-center font-semibold gap-x-1 bg-blue-600 py-1 rounded-md hover:text-yellow-500 transition-all duration-100">
+            <Link target="_blank" href={mal_link} className="w-[70vw] self-center lg:w-full flex justify-center items-center font-semibold gap-x-1 bg-blue-600 py-1 rounded-md hover:text-yellow-500 transition-all duration-100">
 
                 <SiMyanimelist size={26} className="mt-[2px]"/>
                 MyAnimeList
