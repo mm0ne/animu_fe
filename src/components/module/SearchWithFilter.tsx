@@ -12,7 +12,7 @@ interface SearchFilterProp{
 export default function SearchWithFilter({search_for, selects, submitHandler}: SearchFilterProp){
     const router = useRouter();
     return(
-        <form onSubmit={e => submitHandler(e)} className="flex flex-row gap-x-4 items-center justify start w-full">
+        <form onSubmit={e => submitHandler(e)} className="flex flex-col md:flex-row gap-y-2 gap-x-4 items-center justify start w-full">
             <FilterSelect options={selects}/>
             <SearchBar search_for={search_for}/>
             <input type="submit" hidden />

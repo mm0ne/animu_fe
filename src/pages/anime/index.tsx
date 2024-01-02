@@ -87,8 +87,8 @@ export default function anime({ genres }: AnimePageProps) {
       {isLoading && page == 0 ? (
         <Loader />
       ) : (
-        <main className="w-full max-w-7xl pl-2 overflow-y-hidden">
-          <h2 className="text-2xl font-bold pb-2">Watched Anime</h2>
+        <main className="w-full max-w-7xl overflow-y-hidden">
+          <h2 className="text-xl md:text-2xl font-bold pb-2">Watched Anime</h2>
           <SearchWithFilter
             selects={genres as OptionValue[]}
             search_for="anime"
@@ -102,13 +102,13 @@ export default function anime({ genres }: AnimePageProps) {
               notFoundText="couldn't find anime"
             />
           ) : (
-            <section className="mt-10 h-[78vh] overflow-y-scroll">
-              <section className="grid grid-cols-5 gap-y-4 gap-x-8 pr-4">
+            <section className="mt-10 h-auto lg:h-[78vh] overflow-y-scroll">
+              <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-8 xl:pr-4">
                 {animes.map((anime, index) => {
                   return <AnimeCard key={index} data={anime} />;
                 })}
               </section>
-              <div className="mt-5 w-full flex justify-center items-center">
+              <div className="mt-5 pb-2 w-full flex justify-center items-center">
                 <button
                   onClick={getNextPage}
                   className={"btn btn-outline " + (isLoading ? "disabled" : "")}

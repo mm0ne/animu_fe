@@ -1,7 +1,7 @@
-import React, { ReactElement, useState} from "react";
-import {RiDiscLine} from "react-icons/ri"
-import {PiPawPrint} from "react-icons/pi"
-import {FaCat} from "react-icons/fa"
+import React, { ReactElement, useState } from "react";
+import { RiDiscLine } from "react-icons/ri"
+import { PiPawPrint } from "react-icons/pi"
+import Navbar from "@/components/layout/Navbar";
 import { IconType } from "react-icons";
 import { ComponentWithChildren } from "@/types/common";
 import Link from "next/link";
@@ -15,7 +15,7 @@ interface ConfigMenuProps {
 
 function ConfigMenu({ icon, title, href }: ConfigMenuProps) {
   const [isBooped, setIsBooped] = useState<boolean>(false)
-  const rotation = 30 
+  const rotation = 30
   const springs = useSpring({
     transform: isBooped
       ? `rotate(${rotation}deg) scale(1.2)`
@@ -35,7 +35,7 @@ function ConfigMenu({ icon, title, href }: ConfigMenuProps) {
       <animated.span style={springs}>
         {icon}
       </animated.span>
-        
+
       {title}
     </Link>
   );
@@ -47,28 +47,31 @@ export default function DashboardLayout({
 }: ComponentWithChildren) {
 
   return (
-    <div>
-      <div className="p-4 flex flex-row justify-between">
-        <Link href="/" className="flex items-center gap-x-1">
-          <FaCat className="w-9 h-9  mb-2"/>
-          <h1 className="text-3xl font-bold">{"Aster's Corner"}</h1>
-        </Link>
+    <>
+      <Navbar toggle_label="drawer"/>
+      <div className="drawer lg:drawer-open">
+        <input id="drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content w-full px-4 pt-2 md:px-8 md:pt-6 bg-base-100 h-auto">
+          {children}
+
+        </div>
+        <div className="drawer-side lg:max-h-[93.5vh]">
+          <label htmlFor="drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+          <section className="w-80 lg:w-64 xl:w-80 min-h-full bg-base-200">
+            <ConfigMenu
+              icon={<PiPawPrint size={30} />}
+              title="Anime"
+              href="/anime"
+            />
+            <ConfigMenu
+              icon={<RiDiscLine size={30} />}
+              title="Records"
+              href="/records"
+            />
+          </section>
+        </div>
+
       </div>
-      <div className="flex flex-row gap-8 h-auto min-h-[70vh]">
-        <section className="flex flex-col gap-2 basis-[24rem]">
-          <ConfigMenu
-            icon={<PiPawPrint size={30} />}
-            title="Anime"
-            href="/anime"
-          />
-          <ConfigMenu
-            icon={<RiDiscLine size={30} />}
-            title="Records"
-            href="/records"
-          />
-        </section>
-        <section className={"w-full " + className}>{children}</section>
-      </div>
-    </div>
+    </>
   );
 }

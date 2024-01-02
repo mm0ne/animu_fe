@@ -8,7 +8,7 @@ export default function Document() {
         <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
         <head dangerouslySetInnerHTML={{__html: '<!-- <a href="https://www.flaticon.com/free-icons/aster" title="aster icons">Aster icons created by Freepik - Flaticon</a> -->'}}></head>
       </Head>
-      <body data-theme="dark">
+      <body data-theme="dark" className="bg-base-200">
         <Main />
         <NextScript />
       </body>

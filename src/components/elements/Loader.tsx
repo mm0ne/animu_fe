@@ -1,6 +1,6 @@
 export default function Loader() {
   return (
-    <div className="h-[80vh] w-[75vw] flex items-center justify-center">
+    <div className="h-[90vh] w-full lg:h-[80vh] lg:w-[75vw] flex items-center justify-center">
       <svg
       className="w-16 h-16"
         version="1.1"
