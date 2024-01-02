@@ -26,7 +26,9 @@ function ConfigMenu({ icon, title, href }: ConfigMenuProps) {
     },
   })
   return (
-    <Link
+    
+    <Link 
+      onClick={() => {(document.getElementById('drawer') as HTMLInputElement)!.checked = false}}
       onMouseEnter={() => setIsBooped(true)}
       onMouseLeave={() => setIsBooped(false)}
       href={href}
@@ -50,7 +52,7 @@ export default function DashboardLayout({
     <>
       <Navbar toggle_label="drawer"/>
       <div className="drawer lg:drawer-open">
-        <input id="drawer" type="checkbox" className="drawer-toggle" />
+        <input id="drawer" type="checkbox" className="drawer-toggle"/>
         <div className="drawer-content w-full px-4 pt-2 md:px-8 md:pt-6 bg-base-100 h-auto">
           {children}
 
