@@ -48,14 +48,14 @@ export default function DashboardLayout({
   className,
 }: ComponentWithChildren) {
   return (
-    <>
+    <main className="min-h-screen">
       <Navbar toggle_label="drawer" />
       <div className="drawer lg:drawer-open">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content w-full px-2 pt-2 md:px-4 lg:px-8 md:pt-6 h-auto">
+        <div className="drawer-content w-full px-2 pt-2 md:px-4 lg:px-8 md:pt-6">
           {children}
         </div>
-        <div className="drawer-side lg:max-h-[93.5vh]">
+        <div className="drawer-side min-h-[93.5vh] h-full">
           <label
             htmlFor="drawer"
             aria-label="close sidebar"
@@ -75,6 +75,6 @@ export default function DashboardLayout({
           </section>
         </div>
       </div>
-    </>
+    </main>
   );
 }
