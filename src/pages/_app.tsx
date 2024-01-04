@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           },
         },
         queryCache: new QueryCache(),
-      })
+      }),
   );
 
   return getLayout(
@@ -41,6 +41,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <Component {...pageProps} />
       </BaseLayout>
       <Toaster position="bottom-center" reverseOrder={false} gutter={8} />
-    </QueryClientProvider>
+    </QueryClientProvider>,
   );
 }

@@ -5,7 +5,7 @@ import { getAnimeDetail } from "@/components/apis/anime";
 import { UUID } from "crypto";
 import BackButton from "@/components/elements/BackButton";
 import AnimeArticle from "@/components/module/AnimeArticle";
-import { RxCrossCircled, RxCheckCircled } from "react-icons/rx"
+import { RxCrossCircled, RxCheckCircled } from "react-icons/rx";
 import Loader from "@/components/elements/Loader";
 import Head from "next/head";
 
@@ -15,20 +15,22 @@ export default function animeDetail() {
   return isLoading ? (
     <Loader />
   ) : (
-
     <main className="w-full xl:px-6 min-h-[80vh] max-w-full">
       {data && (
         <section className="flex flex-col justify-start items-start">
           <Head>
             <title>{"Anime | " + data.data.title_eng}</title>
-            <meta name="description" content={data.data.anime_detail.description} />
+            <meta
+              name="description"
+              content={data.data.anime_detail.description}
+            />
           </Head>
           <div className="flex gap-x-2">
-
-            <BackButton css_class=" p-1 h-auto" size={25}/>
+            <BackButton css_class=" p-1 h-auto" size={25} />
             <div className="flex flex-col items-start">
-
-              <h1 className="font-bold text-xl md:text-2xl lg:text-3xl">{data?.data.title_eng}</h1>
+              <h1 className="font-bold text-xl md:text-2xl lg:text-3xl">
+                {data?.data.title_eng}
+              </h1>
               <h3 className="font-semibold text-lg md:text-xl opacity-80">
                 {"[JP] " + data?.data.title_jp}
               </h3>
@@ -43,14 +45,25 @@ export default function animeDetail() {
               aliases={data.data.anime_alias}
             />
             <div className="flex lg:hidden flex-col items-center justify-start w-[20em] py-2 pb-5">
-
               {data.data.anime_detail.is_recommended ? (
-                <><RxCheckCircled size={130} className="font-bold text-emerald-500" />
-                  <p className="text-emerald-500 text-xl lg:text-2xl font-semibold">Recommended</p>
+                <>
+                  <RxCheckCircled
+                    size={130}
+                    className="font-bold text-emerald-500"
+                  />
+                  <p className="text-emerald-500 text-xl lg:text-2xl font-semibold">
+                    Recommended
+                  </p>
                 </>
               ) : (
-                <><RxCrossCircled size={130} className="font-bold text-red-500" />
-                  <p className="text-red-500 text-xl lg:text-2xl font-semibold">Not Recommended</p>
+                <>
+                  <RxCrossCircled
+                    size={130}
+                    className="font-bold text-red-500"
+                  />
+                  <p className="text-red-500 text-xl lg:text-2xl font-semibold">
+                    Not Recommended
+                  </p>
                 </>
               )}
             </div>
@@ -59,14 +72,25 @@ export default function animeDetail() {
               review={data.data.anime_detail.review}
             />
             <div className="hidden lg:flex flex-col items-center justify-start w-[20em]">
-
               {data.data.anime_detail.is_recommended ? (
-                <><RxCheckCircled size={130} className="font-bold text-emerald-500" />
-                  <p className="text-emerald-500 text-2xl font-semibold">Recommended</p>
+                <>
+                  <RxCheckCircled
+                    size={130}
+                    className="font-bold text-emerald-500"
+                  />
+                  <p className="text-emerald-500 text-2xl font-semibold">
+                    Recommended
+                  </p>
                 </>
               ) : (
-                <><RxCrossCircled size={130} className="font-bold text-red-500" />
-                  <p className="text-red-500 text-2xl font-semibold">Not Recommended</p>
+                <>
+                  <RxCrossCircled
+                    size={130}
+                    className="font-bold text-red-500"
+                  />
+                  <p className="text-red-500 text-2xl font-semibold">
+                    Not Recommended
+                  </p>
                 </>
               )}
             </div>

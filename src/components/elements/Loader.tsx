@@ -2,7 +2,7 @@ export default function Loader() {
   return (
     <div className="h-[90vh] w-full lg:h-[80vh] lg:w-[75vw] flex items-center justify-center">
       <svg
-      className="w-16 h-16"
+        className="w-16 h-16"
         version="1.1"
         id="L7"
         xmlns="http://www.w3.org/2000/svg"

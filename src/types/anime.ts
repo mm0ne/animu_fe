@@ -11,7 +11,7 @@ export type Anime = {
 
 export type AnimePage = {
   anime_detail: AnimeDetail;
-  anime_alias: Alias[]
+  anime_alias: Alias[];
 } & Anime;
 
 export interface AnimeDetail {
@@ -34,7 +34,6 @@ export interface Genre {
   name: string;
 }
 
-
 export interface Alias {
-  name: string
+  name: string;
 }

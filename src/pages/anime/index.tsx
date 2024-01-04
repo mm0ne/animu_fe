@@ -34,7 +34,7 @@ export default function anime({ genres }: AnimePageProps) {
 
   const getNextPage = async () => {
     setPage(page + 1);
-  }
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -69,7 +69,6 @@ export default function anime({ genres }: AnimePageProps) {
   };
 
   useEffect(() => {
-    
     if (data && data.data && animes != data.data) {
       setAnimes(() => [...animes, ...data.data]);
     }
@@ -136,7 +135,7 @@ anime.getLayout = function getLayout(page: React.ReactElement) {
 };
 
 export const getServerSideProps: GetServerSideProps<AnimePageProps> = async (
-  context
+  context,
 ) => {
   const response = await getAllGenre();
 

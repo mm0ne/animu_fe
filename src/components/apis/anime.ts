@@ -11,16 +11,14 @@ type RequestFnArguments = Parameters<typeof api>;
 async function doApi<T = {}>(
   url: RequestFnArguments[0],
   options: RequestFnArguments[1],
-  notify: boolean = false
+  notify: boolean = false,
 ) {
   let toastId: string = "";
   if (notify) toastId = toast.loading("Running...");
   try {
     const response = await api(url, {
       ...options,
-      headers: {
-        
-      },
+      headers: {},
     }).json<BaseResponse<T>>();
     if (notify) toast.success(response.message ?? "Success");
     return response;
@@ -55,7 +53,7 @@ export const postAnime = <T>(...args: RequestFnArguments) =>
       ...args[1],
       method: "POST",
     },
-    true
+    true,
   );
 
 export const putAnime = <T>(...args: RequestFnArguments) =>
@@ -65,7 +63,7 @@ export const putAnime = <T>(...args: RequestFnArguments) =>
       ...args[1],
       method: "PUT",
     },
-    true
+    true,
   );
 
 export const deleteAnimeByUUID = <T>(...args: RequestFnArguments) =>
@@ -75,7 +73,7 @@ export const deleteAnimeByUUID = <T>(...args: RequestFnArguments) =>
       ...args[1],
       method: "DELETE",
     },
-    true
+    true,
   );
 
 export const getAllAnimePaginated = (page: number) =>
@@ -84,19 +82,19 @@ export const getAllAnimePaginated = (page: number) =>
     queryFn: () => getAll<Anime[]>("all/" + page),
   });
 
-export const searchAnimePaginated = (param_str: string, page: number) => 
+export const searchAnimePaginated = (param_str: string, page: number) =>
   useQuery({
     queryKey: ["anime_search", param_str, page],
     queryFn: () => getAll<Anime[]>("search?page=" + page + param_str),
   });
- 
 
 export const getAnimeDetail = (uuid: UUID) =>
   useQuery({
     queryKey: ["anime_detail", uuid],
     queryFn: () => getAnimeDetailByUUID<AnimePage>("detail/" + uuid),
-    enabled: !(uuid == undefined)
-
+    enabled: !(uuid == undefined),
   });
 
-export const getAllGenre = async () => {return await getAll<Genre[]>("genre/all")}
+export const getAllGenre = async () => {
+  return await getAll<Genre[]>("genre/all");
+};

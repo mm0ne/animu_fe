@@ -1,11 +1,10 @@
 export interface ComponentWithChildren {
-    children: React.ReactNode;
-    className?: string;
-  }
-
+  children: React.ReactNode;
+  className?: string;
+}
 
 export interface BaseResponse<T> {
-  status: "success" | "failed",
+  status: "success" | "failed";
   data: T;
-  message?: string
+  message?: string;
 }
