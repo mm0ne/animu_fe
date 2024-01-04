@@ -13,7 +13,7 @@ export default function index() {
           }
         />
       </Head>
-      <main className="w-full bg-emerald-500"></main>
+      <main className="w-full h-full"></main>
     </>
   );
 }

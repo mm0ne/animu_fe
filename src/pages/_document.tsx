@@ -12,7 +12,7 @@ export default function Document() {
           }}
         ></head>
       </Head>
-      <body data-theme="pastel" className="bg-base-200">
+      <body data-theme="pastel">
         <Main />
         <NextScript />
       </body>
