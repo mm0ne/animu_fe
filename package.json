@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --loglevel warn --write \"src/**/*.{tsx,ts,jsx,js}\""
   },
   "dependencies": {
     "@react-spring/web": "^9.7.3",
@@ -29,6 +30,7 @@
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
     "postcss": "^8",
+    "prettier": "^3.1.1",
     "tailwindcss": "^3",
     "typescript": "^5"
   }
