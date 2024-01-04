@@ -29,7 +29,7 @@ export default function animeDetail() {
             <div className="flex flex-col items-start">
 
               <h1 className="font-bold text-xl md:text-2xl lg:text-3xl">{data?.data.title_eng}</h1>
-              <h3 className="font-semibold text-slate-100 text-lg md:text-xl opacity-80">
+              <h3 className="font-semibold text-lg md:text-xl opacity-80">
                 {"[JP] " + data?.data.title_jp}
               </h3>
             </div>

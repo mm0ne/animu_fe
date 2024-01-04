@@ -69,9 +69,9 @@ export default function anime({ genres }: AnimePageProps) {
   };
 
   useEffect(() => {
+    
     if (data && data.data && animes != data.data) {
       setAnimes(() => [...animes, ...data.data]);
-      console.log(data)
     }
   }, [data]);
 

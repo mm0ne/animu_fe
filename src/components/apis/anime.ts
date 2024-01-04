@@ -22,7 +22,7 @@ async function doApi<T = {}>(
         
       },
     }).json<BaseResponse<T>>();
-    if (notify) toast.success(response.message ?? "Success", { id: toastId });
+    if (notify) toast.success(response.message ?? "Success");
     return response;
   } catch (err) {
     let message = "Unknown error, failed. See developer tools.";
@@ -31,7 +31,7 @@ async function doApi<T = {}>(
       if (errorJson.message) message = errorJson.message;
     }
 
-    if (notify) toast.error(message, { id: toastId });
+    if (notify) toast.error(message);
     throw err;
   }
 }
