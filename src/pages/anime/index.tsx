@@ -37,27 +37,24 @@ export default function anime({ genres }: AnimePageProps) {
     setPage(0);
     setGenre(genre);
   };
-  const { data, isLoading, isFetching, isError } =
-    !isSearch && !isEnabled
+  const { data, isLoading, isFetching, isError } = isEnabled
+    ? searchAnimeByGenrePaginated(genre, page)
+    : !isSearch
       ? getAllAnimePaginated(page)
       : searchAnimePaginated(paramString, page);
 
-  const { data: data_G } = searchAnimeByGenrePaginated(genre, page, isEnabled);
-
   const queryClient = useQueryClient();
-
-  const getNextPage = async () => {
-    setPage(page + 1);
-  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsEnabled(false);
     setIsEnd(false);
+    setPage(0);
+
     const formData = new FormData(e.target as HTMLFormElement);
     const ani = formData.get("anime");
     const gen = formData.get("select");
-    setPage(0);
+
     if (ani == "" && (gen == "all" || gen == null)) {
       setIsSearch(false);
       setParamString("");
@@ -65,7 +62,6 @@ export default function anime({ genres }: AnimePageProps) {
         "anime_list",
         page,
       ]) as BaseResponse<Anime[]>;
-      setAnimes([]);
       setAnimes(data.data);
     } else {
       let query = "";
@@ -86,45 +82,27 @@ export default function anime({ genres }: AnimePageProps) {
 
   useEffect(() => {
     if (data && data.data != null && animes != data.data) {
-      setAnimes(() => [...animes, ...data.data]);
+      if (page == 0) setAnimes(data.data);
+      else setAnimes(() => [...animes, ...data.data]);
       if (data.data.length == 0) {
         setIsEnd(true);
-        toast.success("Sorry, that's all!", {
-          style: {
-            border: "1px solid #FF0000", // Red border color
-            padding: "16px",
-            color: "#FF0000", // Red text color
-          },
-          iconTheme: {
-            primary: "#FF0000", // Darker red primary color for the icon theme
-            secondary: "#F8F8F8", // White-ish or slate-ish secondary color for the icon theme
-          },
-        });
+        if (page != 0) {
+
+          toast.success("Sorry, that's all!", {
+            style: {
+              border: "1px solid #FF0000", // Red border color
+              padding: "16px",
+              color: "#FF0000", // Red text color
+            },
+            iconTheme: {
+              primary: "#FF0000", // Darker red primary color for the icon theme
+              secondary: "#F8F8F8", // White-ish or slate-ish secondary color for the icon theme
+            },
+          });
+        }
       }
     }
   }, [data]);
-
-  useEffect(() => {
-    if (data_G && data_G.data != null && animes != data_G.data) {
-      if (data_G.data.length == 0) {
-        setIsEnd(true);
-        toast.success("Sorry, that's all!", {
-          style: {
-            border: "1px solid #FF0000", // Red border color
-            padding: "16px",
-            color: "#FF0000", // Red text color
-          },
-          iconTheme: {
-            primary: "#FF0000", // Darker red primary color for the icon theme
-            secondary: "#F8F8F8", // White-ish or slate-ish secondary color for the icon theme
-          },
-        });
-      }
-
-      if (page != 0) setAnimes(() => [...animes, ...data_G.data]);
-      else setAnimes(() => [...data_G.data]);
-    }
-  }, [data_G]);
 
   return (
     <>
@@ -135,57 +113,54 @@ export default function anime({ genres }: AnimePageProps) {
           content="List and reviews of animes I have watched"
         />
       </Head>
-      {isLoading && page == 0 ? (
-        <Loader />
-      ) : (
-        <main className="w-full max-w-7xl overflow-y-hidden">
-          <h2 className="text-xl md:text-2xl font-bold pb-2">Watched Anime</h2>
-          <SearchWithFilter
-            page={page}
-            selects={genres as OptionValue[]}
-            search_for="anime"
-            submitHandler={handleSubmit}
-            setGenre={handleGenreOnChange}
-          />
-          {animes.length == 0 ? (
-            <div className="w-full h-full">
-              <NotFound
-                rem_w={20}
-                rem_h={20}
-                textSize_px={50}
-                notFoundText="couldn't find anime"
-              />
-            </div>
-          ) : (
-            <section className="mt-10 h-auto lg:h-[78vh] overflow-y-scroll">
-              <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-4 md:gap-x-8 xl:pr-4">
-                {animes.map((anime, index) => {
-                  return <AnimeCard key={index} data={anime} />;
-                })}
-              </section>
-              <div className="mt-5 pb-2 w-full flex justify-center items-center">
-                {!isEnd && (
-                  <button
-                    onClick={getNextPage}
-                    className={
-                      "btn btn-outline " + (isLoading ? "disabled" : "")
-                    }
-                  >
-                    {isFetching ? (
-                      <>
-                        <span className="loading loading-spinner"></span>
-                        loading
-                      </>
-                    ) : (
-                      <>view more</>
-                    )}
-                  </button>
-                )}
-              </div>
+
+      <main className="w-full max-w-7xl overflow-y-hidden">
+        <h2 className="text-xl md:text-2xl font-bold pb-2">Watched Anime</h2>
+        <SearchWithFilter
+          page={page}
+          selects={genres as OptionValue[]}
+          search_for="anime"
+          submitHandler={handleSubmit}
+          setGenre={handleGenreOnChange}
+        />
+        {isLoading && page == 0 ? (
+          <Loader />
+        ) : animes.length == 0 ? (
+          <div className="w-full h-full">
+            <NotFound
+              rem_w={20}
+              rem_h={20}
+              textSize_px={50}
+              notFoundText="couldn't find anime"
+            />
+          </div>
+        ) : (
+          <section className="mt-10 h-auto lg:h-[78vh] overflow-y-scroll">
+            <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-4 md:gap-x-8 xl:pr-4">
+              {animes.map((anime, index) => {
+                return <AnimeCard key={index} data={anime} />;
+              })}
             </section>
-          )}
-        </main>
-      )}
+            <div className="mt-5 pb-2 w-full flex justify-center items-center">
+              {!isEnd && (
+                <button
+                  onClick={() => setPage(page + 1)}
+                  className={"btn btn-outline " + (isLoading ? "disabled" : "")}
+                >
+                  {isFetching ? (
+                    <>
+                      <span className="loading loading-spinner"></span>
+                      loading
+                    </>
+                  ) : (
+                    <>view more</>
+                  )}
+                </button>
+              )}
+            </div>
+          </section>
+        )}
+      </main>
     </>
   );
 }
