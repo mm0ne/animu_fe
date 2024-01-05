@@ -40,6 +40,7 @@ export const getAll = <T>(...args: RequestFnArguments) =>
     method: "GET",
   });
 
+
 export const getAnimeDetailByUUID = <T>(...args: RequestFnArguments) =>
   doApi<T>(args[0], {
     ...args[1],
@@ -86,6 +87,13 @@ export const searchAnimePaginated = (param_str: string, page: number) =>
   useQuery({
     queryKey: ["anime_search", param_str, page],
     queryFn: () => getAll<Anime[]>("search?page=" + page + param_str),
+  });
+
+export const searchAnimeByGenrePaginated = (genre_id:string, page: number, is_enabled: boolean = true) =>
+  useQuery({
+    queryKey: ["anime_search", genre_id, page],
+    queryFn: () => getAll<Anime[]>("search?page=" + page + "&genre_id=" + genre_id),
+    enabled: is_enabled,
   });
 
 export const getAnimeDetail = (uuid: UUID) =>

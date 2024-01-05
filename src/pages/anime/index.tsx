@@ -15,6 +15,7 @@ import { BaseResponse } from "@/types/common";
 import Loader from "@/components/elements/Loader";
 import Head from "next/head";
 import NotFound from "@/components/module/NotFound";
+import { searchAnimeByGenrePaginated } from "@/components/apis/anime";
 import toast from "react-hot-toast";
 
 interface AnimePageProps {
@@ -22,13 +23,26 @@ interface AnimePageProps {
 }
 
 export default function anime({ genres }: AnimePageProps) {
+  const [isEnd, setIsEnd] = useState<boolean>(false);
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const [genre, setGenre] = useState<string>("all");
   const [page, setPage] = useState<number>(0);
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [paramString, setParamString] = useState<string>("");
   const [animes, setAnimes] = useState<Anime[]>([]);
-  const { data, isLoading, isFetching, isError } = !isSearch
-    ? getAllAnimePaginated(page)
-    : searchAnimePaginated(paramString, page);
+
+  const handleGenreOnChange = (genre: string) => {
+    setIsEnd(false);
+    setIsEnabled(true);
+    setPage(0);
+    setGenre(genre);
+  };
+  const { data, isLoading, isFetching, isError } =
+    !isSearch && !isEnabled
+      ? getAllAnimePaginated(page)
+      : searchAnimePaginated(paramString, page);
+
+  const { data: data_G } = searchAnimeByGenrePaginated(genre, page, isEnabled);
 
   const queryClient = useQueryClient();
 
@@ -38,6 +52,8 @@ export default function anime({ genres }: AnimePageProps) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsEnabled(false);
+    setIsEnd(false);
     const formData = new FormData(e.target as HTMLFormElement);
     const ani = formData.get("anime");
     const gen = formData.get("select");
@@ -69,10 +85,46 @@ export default function anime({ genres }: AnimePageProps) {
   };
 
   useEffect(() => {
-    if (data && data.data && animes != data.data) {
+    if (data && data.data != null && animes != data.data) {
       setAnimes(() => [...animes, ...data.data]);
+      if (data.data.length == 0) {
+        setIsEnd(true);
+        toast.success("Sorry, that's all!", {
+          style: {
+            border: "1px solid #FF0000", // Red border color
+            padding: "16px",
+            color: "#FF0000", // Red text color
+          },
+          iconTheme: {
+            primary: "#FF0000", // Darker red primary color for the icon theme
+            secondary: "#F8F8F8", // White-ish or slate-ish secondary color for the icon theme
+          },
+        });
+      }
     }
   }, [data]);
+
+  useEffect(() => {
+    if (data_G && data_G.data != null && animes != data_G.data) {
+      if (data_G.data.length == 0) {
+        setIsEnd(true);
+        toast.success("Sorry, that's all!", {
+          style: {
+            border: "1px solid #FF0000", // Red border color
+            padding: "16px",
+            color: "#FF0000", // Red text color
+          },
+          iconTheme: {
+            primary: "#FF0000", // Darker red primary color for the icon theme
+            secondary: "#F8F8F8", // White-ish or slate-ish secondary color for the icon theme
+          },
+        });
+      }
+
+      if (page != 0) setAnimes(() => [...animes, ...data_G.data]);
+      else setAnimes(() => [...data_G.data]);
+    }
+  }, [data_G]);
 
   return (
     <>
@@ -89,13 +141,14 @@ export default function anime({ genres }: AnimePageProps) {
         <main className="w-full max-w-7xl overflow-y-hidden">
           <h2 className="text-xl md:text-2xl font-bold pb-2">Watched Anime</h2>
           <SearchWithFilter
+            page={page}
             selects={genres as OptionValue[]}
             search_for="anime"
             submitHandler={handleSubmit}
+            setGenre={handleGenreOnChange}
           />
           {animes.length == 0 ? (
             <div className="w-full h-full">
-
               <NotFound
                 rem_w={20}
                 rem_h={20}
@@ -111,19 +164,23 @@ export default function anime({ genres }: AnimePageProps) {
                 })}
               </section>
               <div className="mt-5 pb-2 w-full flex justify-center items-center">
-                <button
-                  onClick={getNextPage}
-                  className={"btn btn-outline " + (isLoading ? "disabled" : "")}
-                >
-                  {isFetching ? (
-                    <>
-                      <span className="loading loading-spinner"></span>
-                      loading
-                    </>
-                  ) : (
-                    <>view more</>
-                  )}
-                </button>
+                {!isEnd && (
+                  <button
+                    onClick={getNextPage}
+                    className={
+                      "btn btn-outline " + (isLoading ? "disabled" : "")
+                    }
+                  >
+                    {isFetching ? (
+                      <>
+                        <span className="loading loading-spinner"></span>
+                        loading
+                      </>
+                    ) : (
+                      <>view more</>
+                    )}
+                  </button>
+                )}
               </div>
             </section>
           )}
@@ -138,7 +195,7 @@ anime.getLayout = function getLayout(page: React.ReactElement) {
 };
 
 export const getServerSideProps: GetServerSideProps<AnimePageProps> = async (
-  context,
+  context
 ) => {
   const response = await getAllGenre();
 
