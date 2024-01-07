@@ -114,7 +114,7 @@ export default function anime({ genres }: AnimePageProps) {
         />
       </Head>
 
-      <main className="w-full max-w-7xl overflow-y-hidden">
+      <main className="w-full max-w-8xl overflow-y-hidden">
         <h2 className="text-xl md:text-2xl font-bold pb-2">Watched Anime</h2>
         <SearchWithFilter
           page={page}
@@ -135,8 +135,8 @@ export default function anime({ genres }: AnimePageProps) {
             />
           </div>
         ) : (
-          <section className="mt-10 h-auto lg:h-[78vh] overflow-y-scroll">
-            <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-4 md:gap-x-8 xl:pr-4">
+          <section className="mt-10 h-auto lg:h-[78vh] overflow-y-auto scrollbar-thin scrollbar-rounded-[12px] scrollbar-track-slate-400/20 scrollbar-thumb-emerald-200/80">
+            <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-y-4 gap-x-4 md:gap-x-8 xl:pr-4">
               {animes.map((anime, index) => {
                 return <AnimeCard key={index} data={anime} />;
               })}

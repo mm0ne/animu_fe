@@ -16,7 +16,8 @@ const config: Config = {
   },
   plugins: [
     require("daisyui"),
-    require("@tailwindcss/typography")
+    require("@tailwindcss/typography"),
+    require('tailwind-scrollbar'),
   ],
   daisyui: {
     themes: ["dark", "light", "pastel"]
