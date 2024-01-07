@@ -84,7 +84,7 @@ export default function anime({ genres }: AnimePageProps) {
     if (data && data.data != null && animes != data.data) {
       if (page == 0) setAnimes(data.data);
       else setAnimes(() => [...animes, ...data.data]);
-      if (data.data.length == 0) {
+      if (data.data.length == 0 || data.data.length < 25) {
         setIsEnd(true);
         if (page != 0) {
 
@@ -142,7 +142,7 @@ export default function anime({ genres }: AnimePageProps) {
               })}
             </section>
             <div className="mt-5 pb-2 w-full flex justify-center items-center">
-              {!isEnd && (
+              {!isEnd && animes.length >= 15 && (
                 <button
                   onClick={() => setPage(page + 1)}
                   className={"btn btn-outline " + (isLoading ? "disabled" : "")}
