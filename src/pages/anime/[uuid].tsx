@@ -5,10 +5,9 @@ import { getAnimeDetail } from "@/components/apis/anime";
 import { UUID } from "crypto";
 import BackButton from "@/components/elements/BackButton";
 import AnimeArticle from "@/components/module/AnimeArticle";
-import { RxCrossCircled, RxCheckCircled } from "react-icons/rx";
 import Loader from "@/components/elements/Loader";
 import Head from "next/head";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   WorstSatisfactionLevel,
   BadSatisfactionLevel,
@@ -17,18 +16,53 @@ import {
   GreatSatisfactionLevel,
   BestSatisfactionLevel,
 } from "@/components/elements/SatisfactionLevel";
-
+import { NEXT_SEO_DEFAULT } from "../../../next-seo-config";
+import { NextSeo } from "next-seo";
 
 
 export default function animeDetail() {
   const { query } = useRouter();
   const { data, isLoading } = getAnimeDetail(query!.uuid as UUID);
   const [satisfactory, setSatisfactory] = useState<JSX.Element>(<NeutralSatisfactionLevel/>);
+  
+  let updatedSEO = {
+    ...NEXT_SEO_DEFAULT,
+    title: "Anime | Review",
+    titleTemplate:'',
+    description: "Collection and Reviews of Aster's Watched Animes.",
+    openGraph: {
+        type: 'website',
+        locale: 'id_ID',
+        url: 'https://animu.monemone.site/anime/9ea46737-c86a-46af-b533-00d07ef70034',
+        title: 'Anime | Review',
+        description: "Collection and Reviews of Aster's Watched Animes.",
+        siteName: 'Aster\'s Corner',
+      }
+  };
 
   useEffect(() => {
     if (data) {
       const rating = data.data.rating as unknown as number;
-      console.log(rating);
+      switch (true) {
+        case rating < 5:
+          setSatisfactory(<WorstSatisfactionLevel/>);
+          break;
+        case rating < 7:
+          setSatisfactory(<BadSatisfactionLevel/>);
+          break;
+        case rating < 7.5:
+          setSatisfactory(<NeutralSatisfactionLevel/>);
+          break;
+        case rating < 8.3:
+          setSatisfactory(<GoodSatisfactionLevel/>);
+          break;
+        case rating < 5:
+          setSatisfactory(<GreatSatisfactionLevel/>);
+          break;
+        default:
+          setSatisfactory(<BestSatisfactionLevel/>);
+      }
+
       if (rating < 5) {
         setSatisfactory(<WorstSatisfactionLevel/>);
       } else if (5 <= rating && rating < 7) {
@@ -42,6 +76,20 @@ export default function animeDetail() {
       } else if (9 <= rating) {
         setSatisfactory(<BestSatisfactionLevel/>);
       }
+
+      updatedSEO = {
+        ...NEXT_SEO_DEFAULT,
+        title: `Anime | ${data.data.title_eng}`,
+        description: data.data.anime_detail.description,
+        openGraph: {
+            type: 'website',
+            locale: 'id_ID',
+            url: `https://animu.monemone.site/anime/${data.data.id}`,
+            title: `Anime | ${data.data.title_eng}`,
+            description: data.data.anime_detail.description,
+            siteName: 'Aster\'s Corner',
+          }
+      };
     }
   }, [data]);
 

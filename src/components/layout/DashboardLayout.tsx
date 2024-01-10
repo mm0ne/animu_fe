@@ -11,9 +11,10 @@ interface ConfigMenuProps {
   icon: ReactElement<IconType>;
   title: string;
   href: string;
+  isNew: boolean;
 }
 
-function ConfigMenu({ icon, title, href }: ConfigMenuProps) {
+function ConfigMenu({ icon, title, href, isNew }: ConfigMenuProps) {
   const [isBooped, setIsBooped] = useState<boolean>(false);
   const rotation = 30;
   const springs = useSpring({
@@ -39,6 +40,7 @@ function ConfigMenu({ icon, title, href }: ConfigMenuProps) {
       <animated.span style={springs}>{icon}</animated.span>
 
       {title}
+      {isNew && <p className=" text-[12px] text-red-500 font-bold">NEW!</p>}
     </Link>
   );
 }
@@ -66,11 +68,13 @@ export default function DashboardLayout({
               icon={<PiPawPrint size={30} />}
               title="Anime"
               href="/anime"
+              isNew={false}
             />
             <ConfigMenu
               icon={<RiDiscLine size={30} />}
               title="Records"
               href="/records"
+              isNew={true}
             />
           </section>
         </div>
