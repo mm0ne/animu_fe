@@ -8,10 +8,43 @@ import AnimeArticle from "@/components/module/AnimeArticle";
 import { RxCrossCircled, RxCheckCircled } from "react-icons/rx";
 import Loader from "@/components/elements/Loader";
 import Head from "next/head";
+import { ReactNode, useEffect, useState } from "react";
+import {
+  WorstSatisfactionLevel,
+  BadSatisfactionLevel,
+  NeutralSatisfactionLevel,
+  GoodSatisfactionLevel,
+  GreatSatisfactionLevel,
+  BestSatisfactionLevel,
+} from "@/components/elements/SatisfactionLevel";
+
+
 
 export default function animeDetail() {
   const { query } = useRouter();
   const { data, isLoading } = getAnimeDetail(query!.uuid as UUID);
+  const [satisfactory, setSatisfactory] = useState<JSX.Element>(<NeutralSatisfactionLevel/>);
+
+  useEffect(() => {
+    if (data) {
+      const rating = data.data.rating as unknown as number;
+      console.log(rating);
+      if (rating < 5) {
+        setSatisfactory(<WorstSatisfactionLevel/>);
+      } else if (5 <= rating && rating < 7) {
+        setSatisfactory(<BadSatisfactionLevel/>);
+      } else if (7 <= rating && rating < 7.5) {
+        setSatisfactory(<NeutralSatisfactionLevel/>);
+      } else if (7.5 <= rating && rating < 8.3) {
+        setSatisfactory(<GoodSatisfactionLevel/>);
+      } else if (8.3 <= rating && rating < 9) {
+        setSatisfactory(<GreatSatisfactionLevel/>);
+      } else if (9 <= rating) {
+        setSatisfactory(<BestSatisfactionLevel/>);
+      }
+    }
+  }, [data]);
+
   return isLoading ? (
     <Loader />
   ) : (
@@ -44,55 +77,15 @@ export default function animeDetail() {
               genres={data.data.anime_genre_relation}
               aliases={data.data.anime_alias}
             />
-            <div className="flex lg:hidden flex-col items-center justify-start w-[20em] py-2 pb-5">
-              {data.data.anime_detail.is_recommended ? (
-                <>
-                  <RxCheckCircled
-                    size={130}
-                    className="font-bold text-emerald-500"
-                  />
-                  <p className="text-emerald-500 text-xl lg:text-2xl font-semibold">
-                    Recommended
-                  </p>
-                </>
-              ) : (
-                <>
-                  <RxCrossCircled
-                    size={130}
-                    className="font-bold text-red-500"
-                  />
-                  <p className="text-red-500 text-xl lg:text-2xl font-semibold">
-                    Not Recommended
-                  </p>
-                </>
-              )}
+            <div className="flex lg:hidden flex-col items-center justify-start min-w-[20em] py-2 pb-5">
+              {satisfactory}
             </div>
             <AnimeArticle
               description={data.data.anime_detail.description}
               review={data.data.anime_detail.review}
             />
-            <div className="hidden lg:flex flex-col items-center justify-start w-[20em]">
-              {data.data.anime_detail.is_recommended ? (
-                <>
-                  <RxCheckCircled
-                    size={130}
-                    className="font-bold text-emerald-500"
-                  />
-                  <p className="text-emerald-500 text-2xl font-semibold">
-                    Recommended
-                  </p>
-                </>
-              ) : (
-                <>
-                  <RxCrossCircled
-                    size={130}
-                    className="font-bold text-red-500"
-                  />
-                  <p className="text-red-500 text-2xl font-semibold">
-                    Not Recommended
-                  </p>
-                </>
-              )}
+            <div className="hidden lg:flex flex-col items-center justify-start min-w-[20em]">
+              {satisfactory}
             </div>
           </div>
         </section>
