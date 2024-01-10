@@ -17,12 +17,27 @@ import Head from "next/head";
 import NotFound from "@/components/module/NotFound";
 import { searchAnimeByGenrePaginated } from "@/components/apis/anime";
 import toast from "react-hot-toast";
-
+import { NEXT_SEO_DEFAULT } from "../../../next-seo-config";
+import { NextSeo } from "next-seo";
 interface AnimePageProps {
   genres: Genre[];
 }
 
 export default function anime({ genres }: AnimePageProps) {
+  const updatedSEO = {
+    ...NEXT_SEO_DEFAULT,
+    title: "Watched Animes",
+    description: "Collection and Reviews of Aster's Watched Animes.",
+    openGraph: {
+        type: 'website',
+        locale: 'id_ID',
+        url: 'https://animu.monemone.site/anime',
+        title: 'Watched Animes',
+        description: "Collection and Reviews of Aster's Watched Animes.",
+        siteName: 'Aster\'s Corner',
+      }
+  };
+
   const [isEnd, setIsEnd] = useState<boolean>(false);
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [genre, setGenre] = useState<string>("all");
@@ -107,12 +122,13 @@ export default function anime({ genres }: AnimePageProps) {
   return (
     <>
       <Head>
-        <title> Watched Anime</title>
+        <title>Watched Animes</title>
         <meta
           name="description"
-          content="List and reviews of animes I have watched"
+          content="Collection and Reviews of Aster's Watched Animes."
         />
       </Head>
+      <NextSeo {...updatedSEO}/>
 
       <main className="w-full max-w-8xl overflow-y-hidden">
         <h2 className="text-xl md:text-2xl font-bold pb-2">Watched Anime</h2>
