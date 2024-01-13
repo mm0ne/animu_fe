@@ -37,7 +37,7 @@ export default function records() {
             Under Construction!
           </h2>
           <Link
-            href="https://www.last.fm/user/nod4saken"
+            href="https://www.last.fm/user/mm0ne"
             className="flex items-center justify-between gap-x-3 btn bg-red-700 text-white hover:text-amber-300"
           >
             <FaLastfm size={30} />
