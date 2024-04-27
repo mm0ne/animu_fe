@@ -17,9 +17,8 @@ import {
   BestSatisfactionLevel,
 } from "@/components/elements/SatisfactionLevel";
 import { NEXT_SEO_DEFAULT } from "../../../next-seo-config";
-import { NextSeo } from "next-seo";
 
-
+export const runtime = 'edge'
 export default function animeDetail() {
   const { query } = useRouter();
   const { data, isLoading } = getAnimeDetail(query!.uuid as UUID);
