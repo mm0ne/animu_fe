@@ -23,7 +23,7 @@ interface AnimePageProps {
   genres: Genre[];
 }
 
-export const runtime = 'edge'
+export const runtime = 'experimental-edge'
 export default function anime({ genres }: AnimePageProps) {
   const updatedSEO = {
     ...NEXT_SEO_DEFAULT,
